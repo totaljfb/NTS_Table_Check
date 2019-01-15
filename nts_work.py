@@ -24,7 +24,7 @@ wb = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q1\\First Revie
 sheet_list = wb.sheetnames
 #sheet_list[0]: the first sheet you want to check
 #sheet_list[1]: the second sheet you want to check, etc
-sheet1 = wb.get_sheet_by_name(sheet_list[0])
+sheet1 = wb.get_sheet_by_name(sheet_list[1])
 max_row1 = sheet1.max_row
 max_col1 = sheet1.max_column
 
