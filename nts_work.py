@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
 # change the file name to work on target file
 wb = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q1\\First Review\\"
-                   + "table_02_41.xlsx", data_only=True)
+                   + "table_01_64.xlsx", data_only=True)
 
 sheet_list = wb.sheetnames
 
@@ -89,8 +89,8 @@ for i in range(1, max_row1):
 # check sheet highlight cells
 print('\n')
 print("Sheet name: " + sheet_name2)
+incorrect_highlight_list = []
 for i in range(1, max_row2 + 1):
-    incorrect_highlight_list = []
     # don't check the last column because it should always be highlighted(supposed to be new column)
     for j in range(1, max_col2):
         cell = sheet2.cell(row=i, column=j)
@@ -99,10 +99,11 @@ for i in range(1, max_row2 + 1):
                 (cell.fill.start_color.rgb == "00000000" and str(cell.value) == "False"):
             incorrect_highlight_cell = "[" + str(i) + "][" + get_column_letter(j) + "]"
             incorrect_highlight_list.append(incorrect_highlight_cell)
-    # if the list is not empty, then print it
-    if incorrect_highlight_list:
-        print("Cells which may be incorrectly highlighted in working sheet: ")
-        print(incorrect_highlight_list)
+# if the list is not empty, then print it
+if incorrect_highlight_list:
+    print("Cells which may be incorrectly highlighted in working sheet: ")
+    for item in incorrect_highlight_list:
+        print(item)
 
 
 
