@@ -25,9 +25,9 @@ if __name__ == '__main__':
 # wb1 is for data, format, style checking
 # wb2 is for formula checking
 wb1 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q1\\First Review\\"
-                   + "table_02_32.xlsx", data_only=True)
+                   + "table_01_24.xlsx", data_only=True)
 wb2 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q1\\First Review\\"
-                   + "table_02_32.xlsx", data_only=False)
+                   + "table_01_24.xlsx", data_only=False)
 # since wb1 and wb2 have the same sheets and sheet names, list and names will be shared here
 sheet_list = wb1.sheetnames
 # sheet_list[0]: the first sheet you want to check
@@ -107,20 +107,20 @@ for i in range(1, max_row2 + 1):
             incorrect_highlight_cell = "[" + str(i) + "|" + get_column_letter(j) + "]"
             incorrect_highlight_list.append(incorrect_highlight_cell)
         # if the list is not empty, then print it
-        if incorrect_highlight_list:
-            # the first column should be excluded
-            if len(incorrect_highlight_list) == max_col2 - 1:
-                print("All cells in row" + " " + str(i))
-            else:
-                cell_index = ""
-                for item in incorrect_highlight_list:
-                    cell_index += item + " "
-                print(cell_index)
+    if incorrect_highlight_list:
+        # the first column should be excluded
+        if len(incorrect_highlight_list) == max_col2 - 1:
+            print("All cells in row" + " " + str(i))
+        else:
+            cell_index = ""
+            for item in incorrect_highlight_list:
+                cell_index += item + " "
+            print(cell_index)
 
 # formula checking starts here
 print('\n')
 print("Sheet name: " + sheet_name1)
-print("The following cell(s) has formula and should be converted to numbers: ")
+print("The following cell(s) has formula(s) on it, please check the previous' version to see if they match")
 for i in range(1, max_row1+1):
     formula_list = []
     for j in range(1, max_col1+1):
