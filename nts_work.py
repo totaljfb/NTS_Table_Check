@@ -25,9 +25,9 @@ if __name__ == '__main__':
 # wb1 is for data, format, style checking
 # wb2 is for formula checking
 wb1 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
-                   + "table_01_46.xlsx", data_only=True)
+                   + "table_01_65.xlsx", data_only=True)
 wb2 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
-                   + "table_01_46.xlsx", data_only=False)
+                   + "table_01_65.xlsx", data_only=False)
 # since wb1 and wb2 have the same sheets and sheet names, list and names will be shared here
 sheet_list = wb1.sheetnames
 # sheet_list[0]: the first sheet you want to check
