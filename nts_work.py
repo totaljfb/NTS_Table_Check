@@ -24,21 +24,22 @@ if __name__ == '__main__':
 # change the file name to work on target file
 # wb1 is for data, format, style checking
 # wb2 is for formula checking
-wb1 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q1\\First Review\\"
-                   + "table_01_24.xlsx", data_only=True)
-wb2 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q1\\First Review\\"
-                   + "table_01_24.xlsx", data_only=False)
+wb1 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
+                   + "table_01_46.xlsx", data_only=True)
+wb2 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
+                   + "table_01_46.xlsx", data_only=False)
 # since wb1 and wb2 have the same sheets and sheet names, list and names will be shared here
 sheet_list = wb1.sheetnames
 # sheet_list[0]: the first sheet you want to check
 # sheet_list[1]: the second sheet you want to check, etc
 sheet_name1 = sheet_list[0]
 sheet_name2 = sheet_list[1]
-# the only thing need to be seperated is the sheet object
-wb1_sheet1 = wb1.get_sheet_by_name(sheet_name1)
-wb1_sheet2 = wb1.get_sheet_by_name(sheet_name2)
-wb2_sheet1 = wb2.get_sheet_by_name(sheet_name1)
-wb2_sheet2 = wb2.get_sheet_by_name(sheet_name2)
+sheet_name3 = sheet_list[3]
+# the only thing need to be separated is the sheet object
+wb1_sheet1 = wb1[sheet_name1]
+wb1_sheet2 = wb1[sheet_name2]
+wb2_sheet1 = wb2[sheet_name1]
+wb2_sheet2 = wb2[sheet_name2]
 
 print("Sheet name: " + sheet_name1)
 # sometimes the max_row returns a large number, temporary solution is
@@ -75,8 +76,7 @@ for i in range(1, max_row1+1):
             font_name_list.append(cell.font.name)
     # if the list is not empty, then print it
     if font_name_list:
-        print("Row " + str(i) + ", font name information: "
-        + Counter(font_name_list).__str__())
+        print("Row " + str(i) + ", font name information: " + Counter(font_name_list).__str__())
 
 # check sheet font sizes
 print('\n')
@@ -102,8 +102,8 @@ for i in range(1, max_row2 + 1):
     for j in range(1, max_col2):
         cell = wb1_sheet2.cell(row=i, column=j)
         # FFFFFF00--yellow highlighted, 00000000--no highlight
-        if (cell.fill.start_color.rgb == "FFFFFF00" and str(cell.value) == "True") or \
-                (cell.fill.start_color.rgb == "00000000" and str(cell.value) == "False"):
+        if (cell.fill.start_color.rgb != "00000000" and str(cell.value) == "TRUE") or \
+                (cell.fill.start_color.rgb == "00000000" and str(cell.value) == "FALSE"):
             incorrect_highlight_cell = "[" + str(i) + "|" + get_column_letter(j) + "]"
             incorrect_highlight_list.append(incorrect_highlight_cell)
         # if the list is not empty, then print it
