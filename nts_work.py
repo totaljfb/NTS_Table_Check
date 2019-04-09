@@ -20,28 +20,25 @@ def main():
 if __name__ == '__main__':
     main()
 
-
 # change the file name to work on target file
 # wb1 is for data, format, style checking
 # wb2 is for formula checking
 wb1 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
-                   + "table_01_65.xlsx", data_only=True)
+                   + "table_01_40_&_01_40M PG2_3.xlsx", data_only=True)
 wb2 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
-                   + "table_01_65.xlsx", data_only=False)
+                   + "table_01_40_&_01_40M PG2_3.xlsx", data_only=False)
 # since wb1 and wb2 have the same sheets and sheet names, list and names will be shared here
 sheet_list = wb1.sheetnames
 # sheet_list[0]: the first sheet you want to check
 # sheet_list[1]: the second sheet you want to check, etc
-sheet_name1 = sheet_list[0]
-sheet_name2 = sheet_list[1]
-sheet_name3 = sheet_list[3]
+sheet_name1 = sheet_list[1]
+sheet_name2 = sheet_list[2]
 # the only thing need to be separated is the sheet object
 wb1_sheet1 = wb1[sheet_name1]
 wb1_sheet2 = wb1[sheet_name2]
 wb2_sheet1 = wb2[sheet_name1]
 wb2_sheet2 = wb2[sheet_name2]
 
-print("Sheet name: " + sheet_name1)
 # sometimes the max_row returns a large number, temporary solution is
 # to manually set the row count here, can be improved in the future
 max_row1 = wb1_sheet1.max_row
@@ -50,8 +47,11 @@ max_row2 = wb1_sheet2.max_row
 max_col2 = wb1_sheet2.max_column
 # example for manually setting the row count
 # max_row1 = 58
-
-# check sheet font bolds
+print('\n')
+print("Sheet name: " + sheet_name1 + "," + " possible incorrect row height and bold font:")
+# check sheet bold font and row height
+row_height_list = []
+row_font_list = []
 for i in range(1, max_row1+1):
     bold_list = []
     for j in range(1, max_col1+1):
@@ -59,14 +59,28 @@ for i in range(1, max_row1+1):
         # if the cell is not empty, then get the property and append to list
         if cell.value:
             bold_list.append(str(cell.font.bold))
-    # if the list is not empty, then print it
-    if bold_list:
-        print("Row " + str(i) + ", height: " + str(wb1_sheet1.row_dimensions[i].height)
-              + " font bold information : " + Counter(bold_list).__str__())
-
+    # if the list's unique value is greater than 1, which means this row has both bold and non-bold fonts
+    if len(set(bold_list)) > 1:
+        row_font_list.append("R" + str(i))
+    # check the row height here:
+    if wb1_sheet1.row_dimensions[i].height:
+        if (wb1_sheet1.row_dimensions[i].height % 16.5 != 0) and (wb1_sheet1.row_dimensions[i].height % 12.75 != 0):
+            row_height_list.append("R" + str(i) + "(" + str(wb1_sheet1.row_dimensions[i].height) + ")")
+if row_height_list:
+    print("The following rows' height is not either the standard height of Data row or Note row:")
+    row_number = ""
+    for row in row_height_list:
+        row_number += row + " "
+    print(row_number)
+if row_font_list:
+    print("The following rows have both bold and non-bold fonts, please check:")
+    row_number = ""
+    for row in row_font_list:
+        row_number += row + " "
+    print(row_number)
 # check sheet font names
 print('\n')
-print("Sheet name: " + sheet_name1)
+print("Sheet name: " + sheet_name1 + "," + " possible incorrect font row:")
 for i in range(1, max_row1+1):
     font_name_list = []
     for j in range(1, max_col1+1):
@@ -120,7 +134,7 @@ for i in range(1, max_row2 + 1):
 # formula checking starts here
 print('\n')
 print("Sheet name: " + sheet_name1)
-print("The following cell(s) has formula(s) on it, please check the previous' version to see if they match")
+print("The following cell(s) has formula(s) on it, please check the previous' version to see if they match:")
 for i in range(1, max_row1+1):
     formula_list = []
     for j in range(1, max_col1+1):
