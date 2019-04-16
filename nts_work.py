@@ -24,15 +24,15 @@ if __name__ == '__main__':
 # wb1 is for data, format, style checking
 # wb2 is for formula checking
 wb1 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
-                   + "table_01_40_&_01_40M PG2_3.xlsx", data_only=True)
+                   + "table_01_11PG1-3.xlsx", data_only=True)
 wb2 = load_workbook("C:\\Users\\Jason.Zhang\\Dropbox\\NTS-\\2019\\Q2\\First Review\\"
-                   + "table_01_40_&_01_40M PG2_3.xlsx", data_only=False)
+                   + "table_01_11PG1-3.xlsx", data_only=False)
 # since wb1 and wb2 have the same sheets and sheet names, list and names will be shared here
 sheet_list = wb1.sheetnames
 # sheet_list[0]: the first sheet you want to check
 # sheet_list[1]: the second sheet you want to check, etc
-sheet_name1 = sheet_list[1]
-sheet_name2 = sheet_list[2]
+sheet_name1 = sheet_list[0]
+sheet_name2 = sheet_list[1]
 # the only thing need to be separated is the sheet object
 wb1_sheet1 = wb1[sheet_name1]
 wb1_sheet2 = wb1[sheet_name2]
@@ -67,7 +67,7 @@ for i in range(1, max_row1+1):
         if (wb1_sheet1.row_dimensions[i].height % 16.5 != 0) and (wb1_sheet1.row_dimensions[i].height % 12.75 != 0):
             row_height_list.append("R" + str(i) + "(" + str(wb1_sheet1.row_dimensions[i].height) + ")")
 if row_height_list:
-    print("The following rows' height is not either the standard height of Data row or Note row:")
+    print("The following rows' height is not the standard height of either Data row or Note row:")
     row_number = ""
     for row in row_height_list:
         row_number += row + " "
